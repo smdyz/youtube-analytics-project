@@ -31,13 +31,24 @@ class Channel:
         pass
 
     def to_json(self, path):
+        flag = True
         info = {'channel_id': self.__channel_id, 'title': self.title,
                 'description': self.description, 'url': self.url, 'sub_quantity': self.sub_quantity,
                 'video_count': self.video_count, 'channel_views': self.channel_views}
-        # with open(path, 'r') as f:
-        #     data = f.read()
-        #     if data != '':
+        with open(path, 'r') as f:
+            if f == '':
+                f.close()
+                exit()
 
-        with open(path, 'a') as file:
-            file.write(json.dumps(info, indent=2, ensure_ascii=False))
-            file.write('\n\n')
+            lines = f.readlines()
+
+            for line in lines:
+                if line == json.dumps(info, indent=2, ensure_ascii=False)[2:46]:
+                    flag = False
+                    f.close()
+
+        if flag:
+            with open(path, 'a') as f:
+                f.write(json.dumps(info, indent=2, ensure_ascii=False))
+                f.write('\n\n')
+                f.close()
