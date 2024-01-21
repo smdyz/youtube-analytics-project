@@ -1,6 +1,7 @@
 import pytest
 from src.channel import Channel
 from src.video import Video, PLVideo
+from src.playlist import PlayList
 
 
 moscowpython = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
@@ -125,5 +126,13 @@ def test_get_service():
 
 
 def test_str_video():
+
     assert str(video1) == 'GIL в Python: зачем он нужен и как с этим жить'
     assert str(video2) == 'MoscowPython Meetup 78 - вступление'
+
+
+pl = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
+
+
+def test_duration():
+    assert str(pl.total_duration) == "1:49:52"
