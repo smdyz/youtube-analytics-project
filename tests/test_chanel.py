@@ -1,9 +1,13 @@
 import pytest
 from src.channel import Channel
+from src.video import Video, PLVideo
 
 
 moscowpython = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
 highload = Channel('UCwHL6WHUarjGfUM_586me8w')
+
+video1 = Video('AWX4JnAnjBE')  # 'AWX4JnAnjBE' - это id видео из ютуб
+video2 = PLVideo('4fObz_qw9u4', 'PLv_zOGKKxVph_8g2Mqc3LMhj0M_BfasbC')
 
 
 # def test_channel():
@@ -118,3 +122,8 @@ def test_ge():
 
 def test_get_service():
     assert str(Channel.get_service())[:-20] == '<googleapiclient.discovery.Resource object at'
+
+
+def test_str_video():
+    assert str(video1) == 'GIL в Python: зачем он нужен и как с этим жить'
+    assert str(video2) == 'MoscowPython Meetup 78 - вступление'
