@@ -136,3 +136,10 @@ pl = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
 
 def test_duration():
     assert str(pl.total_duration) == "1:49:52"
+
+
+def test_video_init_error():
+    broken_video = Video('broken_video_id')
+    assert broken_video.video_id == 'broken_video_id'
+    assert broken_video.title is None
+    assert broken_video.likeCount is None

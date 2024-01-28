@@ -1,4 +1,3 @@
-import json
 import os
 from googleapiclient.discovery import build
 
@@ -18,14 +17,23 @@ class Video:
         viewCount: количество просмотров видео
         likeCount: количество лайков видео
         """
-        self.video_id = video_id
-        self.youtube = build('youtube', 'v3', developerKey=self.api_key)
-        self.video_response = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                         id=video_id).execute()
-        self.title = self.video_response["items"][0]["snippet"]["title"]
-        self.url = f"https://www.youtube.com/{'watch?v='}{self.video_id}"
-        self.viewCount = self.video_response["items"][0]["statistics"]["viewCount"]
-        self.likeCount = self.video_response["items"][0]["statistics"]["likeCount"]
+        try:
+            self.video_id = video_id
+            self.youtube = build('youtube', 'v3', developerKey=self.api_key)
+            self.video_response = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                             id=video_id).execute()
+            self.title = self.video_response["items"][0]["snippet"]["title"]
+            self.url = f"https://www.youtube.com/{'watch?v='}{self.video_id}"
+            self.viewCount = self.video_response["items"][0]["statistics"]["viewCount"]
+            self.likeCount = self.video_response["items"][0]["statistics"]["likeCount"]
+        except IndexError:
+            self.video_id = video_id
+            self.youtube = None
+            self.video_response = None
+            self.title = None
+            self.url = None
+            self.viewCount = None
+            self.likeCount = None
 
     def __str__(self):
         return self.title
